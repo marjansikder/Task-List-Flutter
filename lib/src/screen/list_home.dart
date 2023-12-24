@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:task_list/src/style/colors.dart';
 import 'package:task_list/src/style/text_style.dart';
 import '../app_setting/app_settings.dart';
-import '../service/notes_provider.dart';
-import '../widget/note_card.dart';
-import '../widget/note_create.dart';
+import '../service/tasks_provider.dart';
+import '../widget/task_card.dart';
+import '../widget/task_create.dart';
 
 class ListHome extends StatefulWidget {
   const ListHome({super.key});
@@ -19,7 +19,7 @@ class ListHome extends StatefulWidget {
 class _ListHomeState extends State<ListHome> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<NotesProviders>(
+    return Consumer<TasksProviders>(
       builder: ((context, notesProviders, chile) => Scaffold(
             appBar: AppBar(
               shadowColor: Colors.transparent,
@@ -65,15 +65,15 @@ class _ListHomeState extends State<ListHome> {
               child: SingleChildScrollView(
                   child: Column(
                 children: <Widget>[
-                         noteCreate(context),
+                         taskCreate(context),
                          ListView.builder(
                            shrinkWrap: true,
                            physics: const NeverScrollableScrollPhysics(),
-                           itemCount: notesProviders.notes.length,
+                           itemCount: notesProviders.tasks.length,
                            itemBuilder: (BuildContext context, int index) {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: noteCard(notesProviders.notes[index], context),
+                                  child: taskCard(notesProviders.tasks[index], context),
                                 );
                       },
                   ),

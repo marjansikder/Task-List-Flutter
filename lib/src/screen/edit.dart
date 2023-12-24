@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../service/notes_provider.dart';
+import '../service/tasks_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,7 @@ class _EditNoteState extends State<EditNote> {
   late TextEditingController descriptionController;
   late TextEditingController statusController;
   bool _loading = true;
-  late Note pnote;
+  late Task pnote;
 
   @override
   void initState() {
@@ -48,11 +48,11 @@ class _EditNoteState extends State<EditNote> {
                 children: [
                   ElevatedButton(
                       onPressed: () async{
-                        final notesProvider = Provider.of<NotesProviders>(context, listen: false);
+                        final notesProvider = Provider.of<TasksProviders>(context, listen: false);
                         if (pnote.delete == 0) {
-                          notesProvider.deleteNote(widget.id);
+                          notesProvider.deleteTask(widget.id);
                         } else {
-                          notesProvider.deleteNotePermanent(widget.id);
+                          notesProvider.deleteTaskPermanent(widget.id);
                         }
                         Navigator.pop(context);
                         Navigator.pop(context);
@@ -86,8 +86,8 @@ class _EditNoteState extends State<EditNote> {
         });
   }
   selectNote() async {
-    final notesProvider = Provider.of<NotesProviders>(context, listen: false);
-    final Note note = await notesProvider.selectNote(widget.id);
+    final notesProvider = Provider.of<TasksProviders>(context, listen: false);
+    final Task note = await notesProvider.selectTask(widget.id);
     setState(() {
       pnote = note;
       titleController = TextEditingController(text: note.title);
@@ -107,8 +107,8 @@ class _EditNoteState extends State<EditNote> {
     return WillPopScope(
       onWillPop: () async {
         final notesProvider =
-            Provider.of<NotesProviders>(context, listen: false);
-        notesProvider.updateNote(
+            Provider.of<TasksProviders>(context, listen: false);
+        notesProvider.updateTask(
             widget.id,
             titleController.text,
             descriptionController.text,
@@ -153,8 +153,8 @@ class _EditNoteState extends State<EditNote> {
                           ),
                     onPressed: () {
                       final notesProvider =
-                          Provider.of<NotesProviders>(context, listen: false);
-                      notesProvider.updateNote(widget.id, titleController.text,
+                          Provider.of<TasksProviders>(context, listen: false);
+                      notesProvider.updateTask(widget.id, titleController.text,
                           descriptionController.text,statusController.text);
                       if (pnote.delete == 1) {
                         notesProvider.restoreNote(widget.id);

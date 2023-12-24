@@ -1,4 +1,4 @@
-class Note {
+class Task {
   final int id;
   final String title;
   final String description;
@@ -8,7 +8,7 @@ class Note {
   final String updateDatetime;
   final String deleteDatetime;
 
-  const Note(
+  const Task(
       {required this.id,
       required this.title,
       required this.description,

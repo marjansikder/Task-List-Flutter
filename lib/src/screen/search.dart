@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_list/src/style/colors.dart';
 
-import '../service/notes_provider.dart';
+import '../service/tasks_provider.dart';
 import '../style/text_style.dart';
-import '../widget/note_card.dart';
+import '../widget/task_card.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -18,7 +18,7 @@ class SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NotesProviders>(
+    return Consumer<TasksProviders>(
       builder: ((context, notesProviders, chile) => WillPopScope(
             onWillPop: () async {
               notesProviders.resultClear();
@@ -41,7 +41,7 @@ class SearchPageState extends State<SearchPage> {
                       IconButton.filled(
                           onPressed: () {
                             notesProviders
-                                .searchNotes(searchWordController.text);
+                                .searchTasks(searchWordController.text);
                           },
                           icon: Text('Go',
                                 style: getTextStyle(17, FontWeight.normal, AppColors.white),
@@ -58,7 +58,7 @@ class SearchPageState extends State<SearchPage> {
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: noteCard(notesProviders.searchResult[index], context),
+                        child: taskCard(notesProviders.searchResult[index], context),
                       );
                     },
                   ),

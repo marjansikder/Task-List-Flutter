@@ -56,12 +56,12 @@ class DatabaseHelper {
     return await _db.insert(table, row);
   }
 
-  Future<List<Note>> queryNotes() async {
+  Future<List<Task>> queryNotes() async {
     final List<Map<String, dynamic>> maps =
         await _db.query(table, where: '_delete = 0', orderBy: '_id DESC');
 
     return List.generate(maps.length, (i) {
-      return Note(
+      return Task(
           id: maps[i]['_id'] as int,
           title: maps[i]['title'] as String,
           description: maps[i]['description'] as String,
@@ -73,12 +73,12 @@ class DatabaseHelper {
     });
   }
 
-  Future<List<Note>> queryTrashNotes() async {
+  Future<List<Task>> queryTrashNotes() async {
     final List<Map<String, dynamic>> maps =
         await _db.query(table, where: '_delete = 1', orderBy: '_id DESC');
 
     return List.generate(maps.length, (i) {
-      return Note(
+      return Task(
           id: maps[i]['_id'] as int,
           title: maps[i]['title'] as String,
           description: maps[i]['description'] as String,
@@ -90,12 +90,12 @@ class DatabaseHelper {
     });
   }
 
-  Future<List<Note>> queryNote(id) async {
+  Future<List<Task>> queryNote(id) async {
     final List<Map<String, dynamic>> maps =
         await _db.query(table, where: '_id = $id', orderBy: '_id DESC');
 
     return List.generate(maps.length, (i) {
-      return Note(
+      return Task(
           id: maps[i]['_id'] as int,
           title: maps[i]['title'] as String,
           description: maps[i]['description'] as String,
@@ -107,8 +107,8 @@ class DatabaseHelper {
     });
   }
 
-  Future<List<Note>> searchInDatabase(String searchTerm) async {
-    List<Note> n = [];
+  Future<List<Task>> searchInDatabase(String searchTerm) async {
+    List<Task> n = [];
     if (searchTerm.isEmpty) {
       return n;
     } else {
@@ -119,7 +119,7 @@ class DatabaseHelper {
       );
 
       return List.generate(maps.length, (i) {
-        return Note(
+        return Task(
             id: maps[i]['_id'] as int,
             title: maps[i]['title'] as String,
             description: maps[i]['description'] as String,

@@ -5,7 +5,7 @@ import '../screen/edit.dart';
 import '../style/colors.dart';
 import '../style/text_style.dart';
 
-Widget noteCard(Note n, context) {
+Widget taskCard(Task n, context) {
   return GestureDetector(
     onTap: () {
       Navigator.push(context, MaterialPageRoute(builder: (context) => EditNote(id: n.id)));
@@ -41,6 +41,7 @@ Widget noteCard(Note n, context) {
               bottomLeft: Radius.circular(5.0),
               topLeft: Radius.circular(0.0),
             ),
+            border: Border.all(color: AppColors.greenButton),
             color: AppColors.lightGreen,
           ),
           child: Padding(

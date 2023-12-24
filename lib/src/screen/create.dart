@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_list/src/model/notes.dart';
 
-import '../service/notes_provider.dart';
+import '../service/tasks_provider.dart';
 import '../style/colors.dart';
 import '../style/text_style.dart';
 
@@ -18,6 +19,7 @@ class _CreateNoteState extends State<CreateNote> {
   final descriptionController = TextEditingController();
   final statusController = TextEditingController();
 
+
   @override
   void initState() {
     super.initState();
@@ -25,12 +27,12 @@ class _CreateNoteState extends State<CreateNote> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NotesProviders>(
+    return Consumer<TasksProviders>(
       builder: ((context, notesProviders, child) => WillPopScope(
             onWillPop: () async {
               if (titleController.text.isNotEmpty ||
                   descriptionController.text.isNotEmpty) {
-                notesProviders.insertNote(
+                notesProviders.insertTask(
                   titleController.text,
                     descriptionController.text,
                   statusController.text
@@ -51,7 +53,7 @@ class _CreateNoteState extends State<CreateNote> {
                     onPressed: () {
                       if (titleController.text.isNotEmpty ||
                           descriptionController.text.isNotEmpty) {
-                        notesProviders.insertNote(
+                        notesProviders.insertTask(
                             titleController.text, descriptionController.text,statusController.text);
                       }
                       Navigator.pop(context);
@@ -200,7 +202,7 @@ class _CreateNoteState extends State<CreateNote> {
                         ),
                         SizedBox(
                           height: 15,
-                        )
+                        ), // This is where we update the state when the checkbox is tapped
                       ],
                     ),
                   ),
@@ -211,3 +213,5 @@ class _CreateNoteState extends State<CreateNote> {
     );
   }
 }
+
+

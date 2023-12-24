@@ -3,20 +3,19 @@ import 'package:task_list/src/service/sqlite_helper.dart';
 
 import '../model/notes.dart';
 
-class NotesProviders extends ChangeNotifier {
+class TasksProviders extends ChangeNotifier {
   final dbHelper = DatabaseHelper();
-  List<Note> notes = [];
-  List<Note> trashnotes = [];
-  List<Note> searchResult = [];
+  List<Task> tasks = [];
+  List<Task> searchResult = [];
 
-  void selectNotes() async {
+  void selectTasks() async {
     await dbHelper.init();
-    notes = await dbHelper.queryNotes();
+    tasks = await dbHelper.queryNotes();
     notifyListeners();
     await dbHelper.closeDatabase();
   }
 
-  void searchNotes(String keywords) async {
+  void searchTasks(String keywords) async {
     await dbHelper.init();
     searchResult = await dbHelper.searchInDatabase(keywords);
     notifyListeners();
@@ -28,14 +27,8 @@ class NotesProviders extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectTrashNotes() async {
-    await dbHelper.init();
-    trashnotes = await dbHelper.queryTrashNotes();
-    notifyListeners();
-    await dbHelper.closeDatabase();
-  }
 
-  void insertNote(title, description, status) async {
+  void insertTask(title, description, status) async {
     await dbHelper.init();
     Map<String, dynamic> row = {
       DatabaseHelper.noteTitle: title,
@@ -47,17 +40,17 @@ class NotesProviders extends ChangeNotifier {
     };
     await dbHelper.insert(row);
     await dbHelper.closeDatabase();
-    selectNotes();
+    selectTasks();
   }
 
-  Future<Note> selectNote(int id) async {
+  Future<Task> selectTask(int id) async {
     await dbHelper.init();
-    List<Note> onenotes = await dbHelper.queryNote(id);
+    List<Task> onenotes = await dbHelper.queryNote(id);
     await dbHelper.closeDatabase();
     return onenotes.first;
   }
 
-  void updateNote(int id, String title, String description,String status) async {
+  void updateTask(int id, String title, String description,String status) async {
     await dbHelper.init();
     Map<String, dynamic> row = {
       DatabaseHelper.noteId: id,
@@ -68,43 +61,38 @@ class NotesProviders extends ChangeNotifier {
     };
     await dbHelper.update(row);
     await dbHelper.closeDatabase();
-    selectNotes();
+    selectTasks();
   }
 
-  void deleteNote(int id) async {
+  void deleteTask(int id) async {
     await dbHelper.init();
     await dbHelper.moveToTrash(id);
     await dbHelper.closeDatabase();
-    selectNotes();
-    selectTrashNotes();
+    selectTasks();
   }
 
   void restoreNote(int id) async {
     await dbHelper.init();
     await dbHelper.restoreFromTrash(id);
     await dbHelper.closeDatabase();
-    selectTrashNotes();
-    selectNotes();
+    selectTasks();
   }
 
-  void deleteNotePermanent(int id) async {
+  void deleteTaskPermanent(int id) async {
     await dbHelper.init();
     await dbHelper.delete(id);
     await dbHelper.closeDatabase();
-    selectTrashNotes();
   }
 
   void deleteTrashPermanent() async {
     await dbHelper.init();
     await dbHelper.deleteAllTrash();
     await dbHelper.closeDatabase();
-    selectTrashNotes();
   }
 
   void deleteOldTrash() async {
     await dbHelper.init();
     await dbHelper.deleteOldTrashNotes();
     await dbHelper.closeDatabase();
-    selectTrashNotes();
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:task_list/src/style/colors.dart';
 
-Widget noteCreate(context) {
+Widget taskCreate(context) {
   return Column(
     children: [
       GestureDetector(
@@ -11,10 +11,11 @@ Widget noteCreate(context) {
         },
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 15.0,horizontal: 20),
-          decoration: const BoxDecoration(
+          padding:  EdgeInsets.symmetric(vertical: 15.0,horizontal: 20),
+          decoration:  BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
             color: AppColors.lightGreen,
+            border: Border.all(color: AppColors.greenButton),
           ),
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

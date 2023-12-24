@@ -3,7 +3,7 @@ import 'package:task_list/src/screen/create.dart';
 import 'package:task_list/src/screen/list_home.dart';
 import 'package:task_list/src/screen/search.dart';
 import 'package:task_list/src/screen/splash_screen.dart';
-import 'package:task_list/src/service/notes_provider.dart';
+import 'package:task_list/src/service/tasks_provider.dart';
 import 'package:task_list/src/service/sqlite_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -24,10 +24,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => NotesProviders()
+          create: (context) => TasksProviders()
             ..deleteOldTrash()
-            ..selectNotes()
-            ..selectTrashNotes(),
+            ..selectTasks()
         )
       ],
       child: MaterialApp(
