@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_list/src/screen/create.dart';
+import 'package:task_list/src/screen/human_body.dart';
 import 'package:task_list/src/screen/list_home.dart';
 import 'package:task_list/src/screen/search.dart';
 import 'package:task_list/src/screen/splash_screen.dart';
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => const SplashScreen(),
           '/home': (context) => const ListHome(),
           '/create': (context) => const CreateNote(),
-          '/search': (context) => const SearchPage()
+          '/search': (context) => const SearchPage(),
+          '/humanBody': (context) => const HumanBody()
         },
       ),
     );
